@@ -103,6 +103,15 @@ public abstract class List<A> {
                 : ints.head() + sum(ints.tail());
     }
 
+    // will of course overflow the stack for long lists
+    public static Double product(List<Double> doubles){
+        return doubles.isEmpty()
+               ? 1.0
+               : doubles.head().equals(0.0)
+                 ? 0.0
+                 : doubles.head() * product(doubles.tail());
+    }
+
     public static void main(String[] args)
     {
         assert(       NIL == list());
@@ -121,5 +130,8 @@ public abstract class List<A> {
         assert(  0 == sum(NIL));
         assert(  3 == sum(list(3)));
         assert( 15 == sum(list(1,2,3,4,5)));
+
+        assert(   3.0 == product(list(3.0)));
+        assert( 120.0 == product(list(1.0,2.0,3.0,4.0,5.0)));
     }
 }
