@@ -120,6 +120,13 @@ public abstract class List<A> {
         return list.tail();
     }
 
+    // EXERCISE 3.3
+    // Using the same idea, implement the function setHead for replacing the first element
+    // of a List with a different value.
+    public static <A> List<A> setHead(List<A> list, A x){
+        return new Cons(x,list.tail());
+    }
+
     public static void main(String[] args)
     {
         assert(       NIL == list());
@@ -143,5 +150,8 @@ public abstract class List<A> {
         assert( 120.0 == product(list(1.0,2.0,3.0,4.0,5.0)));
 
         assert( list(2,3).equals(tail(list(1,2,3))) );
+
+        assert(     list(9).equals(setHead(list(1),9)) );
+        assert( list(9,2,3).equals(setHead(list(1,2,3),9)) );
     }
 }
