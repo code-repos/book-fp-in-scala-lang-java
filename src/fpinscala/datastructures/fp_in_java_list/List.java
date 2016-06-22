@@ -112,6 +112,14 @@ public abstract class List<A> {
                  : doubles.head() * product(doubles.tail());
     }
 
+    // Exercise 3.2
+    // Implement the function tail for removing the first element of a List. Note that the
+    // function takes constant time. What are different choices you could make in your
+    // implementation if the List is Nil? We’ll return to this question in the next chapter.
+    public static <A> List<A> tail(List<A> list){
+        return list.tail();
+    }
+
     public static void main(String[] args)
     {
         assert(       NIL == list());
@@ -133,5 +141,7 @@ public abstract class List<A> {
 
         assert(   3.0 == product(list(3.0)));
         assert( 120.0 == product(list(1.0,2.0,3.0,4.0,5.0)));
+
+        assert( list(2,3).equals(tail(list(1,2,3))) );
     }
 }
