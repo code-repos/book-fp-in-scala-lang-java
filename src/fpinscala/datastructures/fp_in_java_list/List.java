@@ -127,6 +127,19 @@ public abstract class List<A> {
         return new Cons(x,list.tail());
     }
 
+    // EXERCISE 3.4
+    // Generalize tail to the function drop, which removes the first n elements from a list.
+    // Note that this function takes time proportional only to the number of elements being
+    // dropped—we don’t need to make a copy of the entire List.
+    public static <A> List<A> drop(List<A> list, int n){
+        if(n == 0)
+            return list;
+        else if (list.isEmpty())
+            throw new IllegalArgumentException("Cannot drop elements from empty list!");
+        else
+            return drop(list.tail(), n - 1);
+    }
+
     public static void main(String[] args)
     {
         assert(       NIL == list());
@@ -153,5 +166,10 @@ public abstract class List<A> {
 
         assert(     list(9).equals(setHead(list(1),9)) );
         assert( list(9,2,3).equals(setHead(list(1,2,3),9)) );
+
+        assert(     list(1,2,3).equals(drop(list(1,2,3),0)) );
+        assert(       list(2,3).equals(drop(list(1,2,3),1)) );
+        assert(         list(3).equals(drop(list(1,2,3),2)) );
+        assert(          list().equals(drop(list(1,2,3),3)) );
     }
 }
