@@ -6,6 +6,8 @@
 
 package fpinscala.datastructures.fp_in_java_list;
 
+import java.util.function.Predicate;
+
 public abstract class List<A> {
 
     public abstract A head();
@@ -140,6 +142,18 @@ public abstract class List<A> {
             return drop(list.tail(), n - 1);
     }
 
+    // EXERCISE 3.5
+    // Implement dropWhile, which removes elements from the List prefix as long as they
+    // match a predicate.
+    public static <A> List<A> dropWhile(List<A> list, Predicate<A> f){
+        if(list.isEmpty())
+            return list;
+        else if (f.test(list.head()))
+            return dropWhile(list.tail(), f);
+        else
+            return list;
+    }
+
     public static void main(String[] args)
     {
         assert(       NIL == list());
@@ -171,5 +185,11 @@ public abstract class List<A> {
         assert(       list(2,3).equals(drop(list(1,2,3),1)) );
         assert(         list(3).equals(drop(list(1,2,3),2)) );
         assert(          list().equals(drop(list(1,2,3),3)) );
+
+        Predicate<Integer> isEven = x -> x % 2 == 0;
+        assert(        list().equals( dropWhile(list(), isEven)) );
+        assert( list(1,2,3,4).equals( dropWhile(list(1,2,3,4), isEven)) );
+        assert(   list(3,4,5).equals( dropWhile(list(2,3,4,5), isEven)) );
+        assert(        list().equals( dropWhile(list(2,4,6,8), isEven)) );
     }
 }
